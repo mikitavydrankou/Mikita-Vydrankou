@@ -1,0 +1,32 @@
+SPISEK
+
+1. =============================================================
+//ERROR 1062 (23000): Duplicate entry '1' for key 'kreatura.PRIMARY'
+
+mysql> ALTER TABLE kreatura DROP primary key;
+mysql> INSERT INTO vydrankoum.kreatura SELECT * FROM wikingowie.kreatura;
+________________________________________________________________
+mysql> CREATE TABLE uczestnicy AS (SELECT * FROM wikingowie.uczestnicy);
+
+mysql> CREATE TABLE vydrankoum.etapy_wyprawy LIKE wikingowie.etapy_wyprawy;
+mysql> INSERT INTO vydrankoum.etapy_wyprawy SELECT * FROM wikingowie.etapy_wyprawy;
+
+mysql> CREATE TABLE vydrankoum.sektor LIKE wikingowie.sektor;
+mysql> INSERT INTO vydrankoum.sektor SELECT * FROM wikingowie.sektor;
+
+mysql> CREATE TABLE vydrankoum.wyprawa LIKE wikingowie.wyprawa;
+mysql> INSERT INTO vydrankoum.wyprawa SELECT * FROM wikingowie.wyprawa;
+2. ===============================================================
+mysql> SELECT CONCAT(wyprawa.nazwa," ", 
+COUNT(uczestnicy.id_uczestnika)," ", 
+GROUP_CONCAT(kreatura.nazwa)) 
+FROM wyprawa 
+JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy 
+JOIN kreatura ON kreatura.idKreatury=uczestnicy.id_uczestnika;                                                                                                                                                             
+3. ===============================================================
+
+
+
+
+
+
