@@ -1,1 +1,0 @@
-# Mikita-Vydrankou
